@@ -9,7 +9,7 @@ export default function ClientListItem({
   name: string
 }) {
   return (
-    <li className="pb-3 sm:pb-4">
+    <li className="pb-3 sm:pb-4 flex">
       <Link href={`/client/${id}`}>
         <div className="flex items-center space-x-4 rtl:space-x-reverse">
           <div className="flex-shrink-0">
@@ -21,7 +21,7 @@ export default function ClientListItem({
               alt={`${name} avatar`}
             />
           </div>
-          <div className="flex-1 min-w-0">
+          <div className="flex-1">
             <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
               {name}
             </p>

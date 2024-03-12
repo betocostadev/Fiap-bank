@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 export default function Dashboard() {
   return (
     <div>
@@ -77,16 +75,6 @@ export default function Dashboard() {
             </tbody>
           </table>
         </div>
-      </section>
-      <section className="mt-8">
-        <h3 className="text-2xl mb-4 font-bold">
-          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-            <Link href="/clients">Clients</Link>
-          </button>
-        </h3>
-        <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-          + Add client
-        </button>
       </section>
     </div>
   )

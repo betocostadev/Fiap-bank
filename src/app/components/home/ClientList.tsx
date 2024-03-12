@@ -1,8 +1,8 @@
 import ClientListItem from './ClientListItem'
-import useClients from '@/hooks/useClients'
+import useGetClients from '@/hooks/useGetClients'
 
 export default function ClientList() {
-  const { clients, loading } = useClients()
+  const { clients, loading } = useGetClients()
 
   if (loading) {
     return <p>Loading clients...</p>
@@ -11,7 +11,7 @@ export default function ClientList() {
   return (
     <div>
       <section>
-        <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!clients.length && <p>No clients found</p>}
           {clients.map((client) => (
             <ClientListItem key={client.id} id={client.id} name={client.name} />

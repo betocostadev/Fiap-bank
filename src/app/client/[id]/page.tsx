@@ -1,3 +1,5 @@
+import Dashboard from '@/app/components/client/dashboard'
+
 export default function Client({ params }: { params: { id: string } }) {
   console.log('Client page: ', params)
   console.log(params.id)
@@ -13,7 +15,7 @@ export default function Client({ params }: { params: { id: string } }) {
         </div>
       </header>
       <main>
-        <h3>Hello user</h3>
+        <Dashboard />
       </main>
     </div>
   )

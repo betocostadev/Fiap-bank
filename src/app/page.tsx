@@ -12,7 +12,7 @@ export default function Home() {
         showModal={showModal}
         hideModal={() => setShowModal(false)}
       />
-      <div className="flex flex-col bg-gray-100 min-h-screen p-8">
+      <div className="flex flex-col min-h-screen p-8">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-red-600">FIAP Bank</h1>
           <div>

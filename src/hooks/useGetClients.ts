@@ -2,7 +2,7 @@ import { IClient } from '@/@types/Client'
 import { getClientsService } from '@/services/clients'
 import { useEffect, useState } from 'react'
 
-const useClients = () => {
+const useGetClients = () => {
   const [clients, setClients] = useState<IClient[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -21,4 +21,4 @@ const useClients = () => {
   return { clients, loading }
 }
 
-export default useClients
+export default useGetClients
