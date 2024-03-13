@@ -1,11 +1,7 @@
 import useAddClient from '@/hooks/useAddClient'
 import useForm from '@/hooks/useForm'
-import { MouseEvent } from 'react'
+import { MouseEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
-
-type AddClientInput = {
-  name: string
-}
 
 export default function AddClientModal({
   showModal,
@@ -17,13 +13,24 @@ export default function AddClientModal({
   const { inputs, handleChange, resetForm } = useForm({
     name: '',
   })
+  const [isError, setIsError] = useState(false)
+
   const addClient = useAddClient()
   const router = useRouter()
 
   if (!showModal) return null
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange(e)
+    setIsError(false)
+  }
+
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
+    if (!inputs.name) {
+      setIsError(true)
+      return
+    }
 
     const newClient = await addClient(inputs.name)
     resetForm()
@@ -90,8 +97,13 @@ export default function AddClientModal({
                   placeholder="John Doe"
                   required
                   value={inputs.name}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                 />
+                {isError && (
+                  <p className="pt-1 text-xs text-red-500 dark:text-red-400">
+                    Name is required
+                  </p>
+                )}
               </div>
 
               <button
