@@ -1,8 +1,57 @@
-export default function Dashboard() {
+import { IClient } from '@/@types/Client'
+import { useClients } from '@/hooks/useClients'
+import useGetBalance from '@/hooks/useGetBalance'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+
+export default function Dashboard({ userId }: { userId: string }) {
+  const [loading, setLoading] = useState(true)
+  const { clients } = useClients()
+  const [client, setClient] = useState<IClient | {}>({})
+  const {
+    fetchBalance,
+    balance,
+    overdraftLimit,
+    loading: loadingBalance,
+  } = useGetBalance()
+
+  useEffect(() => {
+    fetchBalance(userId)
+    console.log('Clients context: ', clients)
+    if (clients.length) {
+      setClient(clients[0])
+      console.log(client)
+    }
+    setLoading(false)
+  }, [clients, client])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div>
       <section>
-        <h2 className="text-xl mb-4 text-black">Hello, User name</h2>
+        <div className="flex flex-col my-2">
+          <div className="flex justify-start items-center">
+            <Image
+              className="rounded-full"
+              width="48"
+              height="48"
+              src="/img/placeholders/avatar.jpeg"
+              alt={`avatar`}
+            />
+            {/* <h2 className="text-2xl text-black ml-2">{`Hello, ${
+              client?.name ? client.name : 'friend'
+            }`}</h2> */}
+          </div>
+          <div className="flex justify-end">
+            <span className="text-lg text-black">Account balance</span>
+            <span className="text-lg ml-2 font-bold text-black">
+              {`${loadingBalance ? 'loading...' : `BRL ${balance}`}`}
+            </span>
+          </div>
+        </div>
         <div className="grid grid-cols-2 gap-4 mb-8">
           <div className="bg-white p-4 rounded-md shadow">
             <div className="flex items-center space-x-2">

@@ -15,8 +15,9 @@ export default function AddClientModal({
   })
   const [isError, setIsError] = useState(false)
 
-  const addClient = useAddClient()
   const router = useRouter()
+  const addClient = useAddClient()
+  // const setClient = useSetClient()
 
   if (!showModal) return null
 
@@ -37,6 +38,7 @@ export default function AddClientModal({
     hideModal()
 
     if (newClient) {
+      // setClient({ name: newClient.name, id: newClient.id })
       router.push(`/client/${newClient.id}`, { scroll: false })
     }
   }

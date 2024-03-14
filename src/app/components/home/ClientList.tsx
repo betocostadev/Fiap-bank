@@ -1,8 +1,17 @@
+import { useClients } from '@/hooks/useClients'
 import ClientListItem from './ClientListItem'
 import useGetClients from '@/hooks/useGetClients'
+import { useEffect } from 'react'
 
 export default function ClientList() {
-  const { clients, loading } = useGetClients()
+  const { clients: fetchedClients, loading } = useGetClients()
+  const { clients, setClients } = useClients()
+
+  useEffect(() => {
+    if (fetchedClients.length) {
+      setClients(fetchedClients)
+    }
+  }, [fetchedClients, setClients])
 
   if (loading) {
     return <p>Loading clients...</p>

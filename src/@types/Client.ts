@@ -14,3 +14,14 @@ type ChekingAccount = {
   balance: number
   overdraftLimit: number
 }
+
+export interface IBalanceResponse {
+  success: boolean
+  message: string
+  data: Balance
+}
+
+export type Balance = {
+  balance: number
+  overdraftLimit: number
+}

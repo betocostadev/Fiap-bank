@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function ClientListItem({
   id,
@@ -8,9 +9,15 @@ export default function ClientListItem({
   id: string
   name: string
 }) {
+  const router = useRouter()
+
+  const setSelectedClient = () => {
+    router.push(`/client/${id}`, { scroll: false })
+  }
+
   return (
     <li className="pb-3 sm:pb-4 flex">
-      <Link href={`/client/${id}`}>
+      <button onClick={setSelectedClient}>
         <div className="flex items-center space-x-4 rtl:space-x-reverse">
           <div className="flex-shrink-0">
             <Image
@@ -27,7 +34,7 @@ export default function ClientListItem({
             </p>
           </div>
         </div>
-      </Link>
+      </button>
     </li>
   )
 }
