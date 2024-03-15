@@ -5,11 +5,16 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Statements from './statements'
 import Actions from './actions'
+import { useRouter } from 'next/navigation'
 
 export default function Dashboard({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(true)
-  const { clients } = useClients()
   const [client, setClient] = useState<IClient>({ id: 'none', name: 'Friend' })
+  const [dropdown, setDropdown] = useState(false)
+  const [shouldRefecth, setShouldRefetch] = useState(false)
+  const { clients } = useClients()
+  const router = useRouter()
+
   const {
     fetchBalance,
     balance,
@@ -19,13 +24,16 @@ export default function Dashboard({ userId }: { userId: string }) {
 
   useEffect(() => {
     fetchBalance(userId)
-    console.log('Clients context: ', clients)
     if (clients.length) {
       setClient(clients.find((client) => client.id === userId) || clients[0])
-      console.log(client)
     }
     setLoading(false)
-  }, [clients, client, fetchBalance, userId])
+    setShouldRefetch(false)
+  }, [clients, client, fetchBalance, shouldRefecth, userId])
+
+  const exitBank = () => {
+    router.push('/', { scroll: false })
+  }
 
   if (loading) {
     return <div>Loading...</div>
@@ -36,15 +44,37 @@ export default function Dashboard({ userId }: { userId: string }) {
       <section className="flex flex-col">
         <div className="flex flex-col my-2">
           <div className="flex justify-start items-center">
-            <Image
-              className="rounded-full"
-              width="48"
-              height="48"
-              src="/img/placeholders/avatar.jpeg"
-              alt={`avatar`}
-            />
+            <button onClick={() => setDropdown(!dropdown)}>
+              <Image
+                className="rounded-full"
+                width="48"
+                height="48"
+                src="/img/placeholders/avatar.jpeg"
+                alt={`avatar`}
+              />
+            </button>
             <h2 className="text-2xl text-black ml-2">{`Hello, ${client.name}`}</h2>
           </div>
+          {dropdown && (
+            <div
+              id="dropdown"
+              className="z-10 absolute mt-8 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+            >
+              <ul
+                className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                aria-labelledby="dropdownDefaultButton"
+              >
+                <li>
+                  <button
+                    className="px-6 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    onClick={exitBank}
+                  >
+                    🔚 Exit
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
           <div className="flex justify-end">
             <span className="text-lg text-black">Account balance</span>
             {loading || loadingBalance ? (
@@ -71,8 +101,8 @@ export default function Dashboard({ userId }: { userId: string }) {
             )}
           </div>
         </div>
-        <Actions id={userId} />
-        <Statements id={userId} />
+        <Actions id={userId} setRefetch={setShouldRefetch} />
+        <Statements id={userId} shouldRefetch={shouldRefecth} />
       </section>
     </div>
   )

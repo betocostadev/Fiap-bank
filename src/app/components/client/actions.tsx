@@ -1,6 +1,13 @@
 import useBanking from '@/hooks/useBanking'
+import { Dispatch, SetStateAction } from 'react'
 
-export default function Actions({ id }: { id: string }) {
+export default function Actions({
+  id,
+  setRefetch,
+}: {
+  id: string
+  setRefetch: Dispatch<SetStateAction<boolean>>
+}) {
   const {
     withdrawAmount,
     withdrawError,
@@ -18,16 +25,18 @@ export default function Actions({ id }: { id: string }) {
     if (type === 'withdraw') {
       await submitWithdraw(id)
       resetWithdraw()
+      setRefetch(true)
     } else {
       await submitDeposit(id)
       resetDeposit()
+      setRefetch(true)
     }
   }
 
   return (
     <div className="grid grid-cols-2 gap-4 mb-8">
       <div className="bg-white p-4 rounded-md shadow">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center justify-center space-x-2">
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -36,7 +45,7 @@ export default function Actions({ id }: { id: string }) {
               Withdraw
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="withdraw"
               name="withdraw"
               type="number"
@@ -47,16 +56,16 @@ export default function Actions({ id }: { id: string }) {
           </div>
 
           <button
-            className="bg-transparent hover:bg-green-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            onChange={() => handleBanking('withdraw')}
-            disabled={loading || withdrawAmount === 0 || withdrawError}
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mt-2 border border-blue-500 hover:border-transparent hover:cursor-pointer rounded self-center"
+            onClick={() => handleBanking('withdraw')}
+            disabled={loading || withdrawAmount <= 0 || withdrawError}
           >
             Withdraw
           </button>
         </div>
       </div>
       <div className="bg-white p-4 rounded-md shadow">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center justify-center space-x-2">
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -65,7 +74,7 @@ export default function Actions({ id }: { id: string }) {
               Deposit
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="deposit"
               name="deposit"
               type="number"
@@ -75,8 +84,8 @@ export default function Actions({ id }: { id: string }) {
             />
           </div>
           <button
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            disabled={loading || depositAmount === 0 || depositError}
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mt-2 border border-blue-500 hover:border-transparent hover:cursor-pointer rounded"
+            disabled={loading || depositAmount <= 0 || depositError}
             onClick={() => handleBanking('deposit')}
           >
             Deposit

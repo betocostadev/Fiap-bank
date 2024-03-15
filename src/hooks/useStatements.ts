@@ -18,8 +18,8 @@ const useStatements = () => {
       })
 
       setStatements(transactions as unknown as Transaction[])
-      setLoading(false)
     }
+    setLoading(false)
   }
 
   return { fetchStatements, statements, loading }

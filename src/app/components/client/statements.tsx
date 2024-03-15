@@ -1,13 +1,19 @@
 import useStatements from '@/hooks/useStatements'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-export default function Statements({ id }: { id: string }) {
+export default function Statements({
+  id,
+  shouldRefetch,
+}: {
+  id: string
+  shouldRefetch: boolean
+}) {
   const { fetchStatements, statements, loading } = useStatements()
 
   useEffect(() => {
     fetchStatements(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, statements.length])
+  }, [id, statements.length, shouldRefetch])
 
   return (
     <div className="bg-white p-4 rounded-md shadow w-2/3 flex flex-col self-center">
