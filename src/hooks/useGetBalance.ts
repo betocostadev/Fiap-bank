@@ -18,6 +18,7 @@ const useGetBalance = () => {
     setBalance(clientBalance.balance)
     setoverdraftLimit(clientBalance.overdraftLimit)
     setLoading(false)
+    console.log(balance, overdraftLimit)
   }
 
   return { fetchBalance, balance, overdraftLimit, loading }

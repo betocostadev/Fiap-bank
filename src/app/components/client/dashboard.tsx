@@ -8,7 +8,7 @@ import Statements from './statements'
 export default function Dashboard({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(true)
   const { clients } = useClients()
-  const [client, setClient] = useState<IClient | {}>({})
+  const [client, setClient] = useState<IClient>({ id: 'none', name: 'Friend' })
   const {
     fetchBalance,
     balance,
@@ -42,15 +42,32 @@ export default function Dashboard({ userId }: { userId: string }) {
               src="/img/placeholders/avatar.jpeg"
               alt={`avatar`}
             />
-            <h2 className="text-2xl text-black ml-2">{`Hello, ${
-              client.name ? client.name : 'friend'
-            }`}</h2>
+            <h2 className="text-2xl text-black ml-2">{`Hello, ${client.name}`}</h2>
           </div>
           <div className="flex justify-end">
             <span className="text-lg text-black">Account balance</span>
-            <span className="text-lg ml-2 font-bold text-black">
-              {`${loadingBalance ? 'loading...' : `BRL ${balance}`}`}
-            </span>
+            {loading || loadingBalance ? (
+              <span className="text-lg ml-2 font-bold text-black">
+                loading...
+              </span>
+            ) : (
+              <div>
+                <span
+                  className={`text-lg ml-2 font-bold ${
+                    balance >= 0 ? 'text-black' : 'text-red-500'
+                  }`}
+                >
+                  {`BRL ${balance}`}
+                </span>
+                <span
+                  className={`text-lg ml-2 font-bold ${
+                    overdraftLimit <= 0 ? 'text-red-500' : 'text-blue-500'
+                  }`}
+                >
+                  {` (${overdraftLimit <= 0 ? '-' : ''}${overdraftLimit})`}
+                </span>
+              </div>
+            )}
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 mb-8">
@@ -97,8 +114,8 @@ export default function Dashboard({ userId }: { userId: string }) {
               </button>
             </div>
           </div>
-          <Statements id={userId} />
         </div>
+        <Statements id={userId} />
       </section>
     </div>
   )

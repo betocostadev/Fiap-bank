@@ -1,7 +1,7 @@
 export interface IClient {
   id: string
   name: string
-  chekingAccount: ChekingAccount
+  chekingAccount?: ChekingAccount
 }
 
 export interface IClientResponse {
