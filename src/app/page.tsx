@@ -2,13 +2,12 @@
 import { useState } from 'react'
 import ClientList from './components/home/ClientList'
 import AddClientModal from './components/home/AddClientModal'
-import { ClientsProvider } from '@/providers/clients'
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false)
 
   return (
-    <ClientsProvider>
+    <>
       <AddClientModal
         showModal={showModal}
         hideModal={() => setShowModal(false)}
@@ -30,6 +29,6 @@ export default function Home() {
           <ClientList />
         </section>
       </div>
-    </ClientsProvider>
+    </>
   )
 }

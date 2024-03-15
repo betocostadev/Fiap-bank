@@ -1,3 +1,4 @@
+'use client' // This is a client component 👈🏽
 import React, { useState } from 'react'
 import ClientsContext from '@/contexts/clients'
 

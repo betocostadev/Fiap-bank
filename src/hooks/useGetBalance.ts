@@ -1,4 +1,4 @@
-import { Balance, IBalanceResponse } from '@/@types/Client'
+import { Balance } from '@/@types/Client'
 import { getBalanceService } from '@/services/client'
 
 import { useState } from 'react'

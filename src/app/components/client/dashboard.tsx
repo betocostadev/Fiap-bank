@@ -3,6 +3,7 @@ import { useClients } from '@/hooks/useClients'
 import useGetBalance from '@/hooks/useGetBalance'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import Statements from './statements'
 
 export default function Dashboard({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(true)
@@ -19,11 +20,11 @@ export default function Dashboard({ userId }: { userId: string }) {
     fetchBalance(userId)
     console.log('Clients context: ', clients)
     if (clients.length) {
-      setClient(clients[0])
+      setClient(clients.find((client) => client.id === userId) || clients[0])
       console.log(client)
     }
     setLoading(false)
-  }, [clients, client])
+  }, [clients, client, fetchBalance, userId])
 
   if (loading) {
     return <div>Loading...</div>
@@ -41,9 +42,9 @@ export default function Dashboard({ userId }: { userId: string }) {
               src="/img/placeholders/avatar.jpeg"
               alt={`avatar`}
             />
-            {/* <h2 className="text-2xl text-black ml-2">{`Hello, ${
-              client?.name ? client.name : 'friend'
-            }`}</h2> */}
+            <h2 className="text-2xl text-black ml-2">{`Hello, ${
+              client.name ? client.name : 'friend'
+            }`}</h2>
           </div>
           <div className="flex justify-end">
             <span className="text-lg text-black">Account balance</span>
@@ -96,33 +97,7 @@ export default function Dashboard({ userId }: { userId: string }) {
               </button>
             </div>
           </div>
-        </div>
-        <div className="bg-white p-4 rounded-md shadow">
-          <h3 className="text-2xl mb-4 font-bold">TRANSACTIONS</h3>
-          <table className="table-auto w-full text-black">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td># 3461</td>
-                <td>Withdraw</td>
-                <td className="text-red-500">- 1100</td>
-                <td>3900</td>
-              </tr>
-              <tr>
-                <td># 3462</td>
-                <td>Deposit</td>
-                <td className="text-green-500">+ 100,92</td>
-                <td>4000,92</td>
-              </tr>
-            </tbody>
-          </table>
+          <Statements id={userId} />
         </div>
       </section>
     </div>
