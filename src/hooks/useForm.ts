@@ -9,7 +9,7 @@ export default function useForm(initial: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues])
 
-  function handleChange(e: any) {
+  const handleChange = (e: any) => {
     let { value, name, type } = e.target
 
     if (type === 'number') {
@@ -29,11 +29,11 @@ export default function useForm(initial: any) {
     })
   }
 
-  function resetForm() {
+  const resetForm = () => {
     setInputs(initial)
   }
 
-  function clearForm() {
+  const clearForm = () => {
     const blankState = Object.fromEntries(
       Object.entries(inputs).map(([key, value]) => [key, ''])
     )

@@ -10,10 +10,10 @@ export default function Statements({ id }: { id: string }) {
   }, [id, statements.length])
 
   return (
-    <div className="bg-white p-4 rounded-md shadow w-full">
-      <h3 className="text-2xl mb-4 font-bold">TRANSACTIONS</h3>
+    <div className="bg-white p-4 rounded-md shadow w-2/3 flex flex-col self-center">
+      <h3 className="text-2xl mb-4 font-bold text-center">TRANSACTIONS</h3>
       {loading && <p>Loading...</p>}
-      <table className="table-auto w-full text-black">
+      <table className="table-auto w-full text-black text-center">
         <thead>
           <tr>
             <th>Date</th>

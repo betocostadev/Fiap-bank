@@ -4,6 +4,7 @@ import useGetBalance from '@/hooks/useGetBalance'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Statements from './statements'
+import Actions from './actions'
 
 export default function Dashboard({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(true)
@@ -32,7 +33,7 @@ export default function Dashboard({ userId }: { userId: string }) {
 
   return (
     <div>
-      <section>
+      <section className="flex flex-col">
         <div className="flex flex-col my-2">
           <div className="flex justify-start items-center">
             <Image
@@ -70,51 +71,7 @@ export default function Dashboard({ userId }: { userId: string }) {
             )}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="bg-white p-4 rounded-md shadow">
-            <div className="flex items-center space-x-2">
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="withdraw"
-                >
-                  Withdraw
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="withdraw"
-                  type="number"
-                  placeholder="0"
-                />
-              </div>
-
-              <button className="bg-transparent hover:bg-green-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                Withdraw
-              </button>
-            </div>
-          </div>
-          <div className="bg-white p-4 rounded-md shadow">
-            <div className="flex items-center space-x-2">
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="deposit"
-                >
-                  Deposit
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="deposit"
-                  type="number"
-                  placeholder="0"
-                />
-              </div>
-              <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                Deposit
-              </button>
-            </div>
-          </div>
-        </div>
+        <Actions id={userId} />
         <Statements id={userId} />
       </section>
     </div>

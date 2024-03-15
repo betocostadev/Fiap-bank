@@ -17,3 +17,13 @@ export type Transaction = {
   amount: number
   type: number
 }
+
+export type WithdrawResponse = {
+  success: boolean
+  message: string
+}
+
+export type DepositResponse = {
+  success: boolean
+  message: string
+}
