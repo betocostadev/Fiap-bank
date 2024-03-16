@@ -16,10 +16,12 @@ export default function Statements({
   }, [id, statements.length, shouldRefetch])
 
   return (
-    <div className="bg-white p-4 rounded-md shadow w-2/3 flex flex-col self-center">
-      <h3 className="text-2xl mb-4 font-bold text-center">TRANSACTIONS</h3>
-      {loading && <p>Loading...</p>}
-      <table className="table-auto w-full text-black text-center">
+    <div className="bg-white p-4 rounded-md shadow w-2/3 flex flex-col self-center dark:bg-gray-400">
+      <h3 className="text-xl mb-4 font-bold text-center text-black dark:text-white">
+        TRANSACTIONS
+      </h3>
+      {loading && <p className="text-black dark:text-white">Loading...</p>}
+      <table className="table-auto w-full text-black text-center dark:text-white">
         <thead>
           <tr>
             <th>Date</th>
@@ -34,13 +36,16 @@ export default function Statements({
               <td
                 className={
                   statement.type === 'Deposit'
-                    ? 'text-green-500'
-                    : 'text-red-500'
+                    ? 'text-green-500 dark:text-green-300'
+                    : 'text-red-500 dark:text-red-600'
                 }
               >
                 {statement.type}
               </td>
-              <td>{statement.amount}</td>
+              <td className="flex justify-evenly">
+                <span>{`${statement.type === 'Deposit' ? '➕' : '➖'}`}</span>
+                <span>{statement.amount}</span>
+              </td>
             </tr>
           ))}
         </tbody>

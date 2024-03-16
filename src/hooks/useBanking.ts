@@ -57,11 +57,9 @@ const useBanking = (initial: 0) => {
     }
     const withdraw = await withdrawService(data)
 
-    console.log('withdraw hook', withdraw)
-
     setLoading(false)
 
-    return
+    return withdraw
   }
 
   const submitDeposit = async (id: string) => {
@@ -73,11 +71,9 @@ const useBanking = (initial: 0) => {
     }
     const deposit = await depositService(data)
 
-    console.log('deposit hook', deposit)
-
     setLoading(false)
 
-    return
+    return deposit
   }
 
   return {
