@@ -1,10 +1,10 @@
 import { depositService, withdrawService } from '@/services/client'
 import { useEffect, useState } from 'react'
 
-const useBanking = (initial: 0) => {
-  const [withdrawAmount, setWithdrawAmount] = useState(0)
+const useBanking = (initial: '') => {
+  const [withdrawAmount, setWithdrawAmount] = useState<string | number>('')
   const [withdrawError, setWithdrawError] = useState(false)
-  const [depositAmount, setDepositAmount] = useState(0)
+  const [depositAmount, setDepositAmount] = useState<string | number>('')
   const [depositError, setDepositError] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -32,7 +32,7 @@ const useBanking = (initial: 0) => {
     }
 
     if (name === 'withdraw') {
-      setWithdrawAmount(value)
+      setWithdrawAmount(Number(value))
       setWithdrawError(false)
     } else {
       setDepositAmount(value)
@@ -41,18 +41,18 @@ const useBanking = (initial: 0) => {
   }
 
   const resetWithdraw = () => {
-    setWithdrawAmount(0)
+    setWithdrawAmount('')
   }
 
   const resetDeposit = () => {
-    setDepositAmount(0)
+    setDepositAmount('')
   }
 
   const submitWithdraw = async (id: string) => {
     setLoading(true)
 
     const data = {
-      amount: withdrawAmount,
+      amount: Number(withdrawAmount),
       id,
     }
     const withdraw = await withdrawService(data)
@@ -66,7 +66,7 @@ const useBanking = (initial: 0) => {
     setLoading(true)
 
     const data = {
-      amount: depositAmount,
+      amount: Number(depositAmount),
       id,
     }
     const deposit = await depositService(data)

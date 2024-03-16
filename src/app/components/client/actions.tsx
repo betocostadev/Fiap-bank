@@ -20,7 +20,7 @@ export default function Actions({
     resetWithdraw,
     resetDeposit,
     loading,
-  } = useBanking(0)
+  } = useBanking('')
 
   const { toastSuccess, toastError } = useToast()
 
@@ -47,7 +47,7 @@ export default function Actions({
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 mb-8">
+    <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4 mb-8">
       <div className="bg-white p-4 rounded-md shadow dark:bg-gray-400">
         <div className="flex items-center justify-center space-x-2">
           <div className="mb-4">
@@ -71,7 +71,11 @@ export default function Actions({
           <button
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mt-2 border border-blue-500 hover:border-transparent hover:cursor-pointer rounded self-center dark:text-white"
             onClick={() => handleBanking('withdraw')}
-            disabled={loading || withdrawAmount <= 0 || withdrawError}
+            disabled={
+              loading ||
+              (typeof withdrawAmount === 'number' && withdrawAmount <= 0) ||
+              withdrawError
+            }
           >
             Withdraw
           </button>
@@ -98,7 +102,11 @@ export default function Actions({
           </div>
           <button
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mt-2 border border-blue-500 hover:border-transparent hover:cursor-pointer rounded self-center dark:text-white"
-            disabled={loading || depositAmount <= 0 || depositError}
+            disabled={
+              loading ||
+              (typeof depositAmount === 'number' && depositAmount <= 0) ||
+              depositError
+            }
             onClick={() => handleBanking('deposit')}
           >
             Deposit

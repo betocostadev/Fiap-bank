@@ -28,7 +28,7 @@ export default function ClientListItem({
             />
           </div>
           <div className="flex-1">
-            <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+            <p className="text-sm md:text-md font-medium text-gray-900 truncate dark:text-white">
               {name}
             </p>
           </div>

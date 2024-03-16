@@ -13,9 +13,9 @@ export default function Home() {
         hideModal={() => setShowModal(false)}
       />
       <div className="flex flex-col min-h-screen p-8 dark:bg-gray-900">
-        <section className="flex flex-col w-1/2 self-center">
+        <section className="flex flex-col w-full md:w-1/2 self-center">
           <div className="flex justify-between">
-            <h2 className="text-2xl font-bold mb-4">Clients</h2>
+            <h2 className="text-xl md:text-2xl font-bold mb-4">Clients</h2>
             <button
               data-modal-target="add-client-modal"
               data-modal-toggle="add-client-modal"

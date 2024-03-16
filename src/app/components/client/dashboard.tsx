@@ -53,7 +53,7 @@ export default function Dashboard({ userId }: { userId: string }) {
                 alt={`avatar`}
               />
             </button>
-            <h2 className="text-2xl text-black ml-2 dark:text-white">{`Hello, ${client.name}`}</h2>
+            <h2 className="text-lg md:text-2xl text-black ml-2 dark:text-white">{`Hello, ${client.name}`}</h2>
           </div>
           {dropdown && (
             <div
@@ -76,7 +76,7 @@ export default function Dashboard({ userId }: { userId: string }) {
             </div>
           )}
           <div className="flex justify-end">
-            <span className="text-lg text-black dark:text-white">
+            <span className="text-md md:text-xl text-black dark:text-white">
               Account balance
             </span>
             {loading || loadingBalance ? (
