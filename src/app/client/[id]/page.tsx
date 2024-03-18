@@ -1,6 +1,6 @@
 'use client'
 
-import Dashboard from '@/app/components/client/Dashboard'
+import Dashboard from '../../components/client/Dashboard'
 
 export default function Client({ params }: { params: { id: string } }) {
   return (
