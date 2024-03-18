@@ -6,7 +6,7 @@ import Statements from './Statements'
 import Actions from './Actions'
 import DashboardAvatar from './DashboardAvatar'
 
-export default function Dashboard({ userId }: { userId: string }) {
+export default function ClientDashboard({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(true)
   const [client, setClient] = useState<IClient>({ id: 'none', name: 'Friend' })
   const [shouldRefecth, setShouldRefetch] = useState(false)
