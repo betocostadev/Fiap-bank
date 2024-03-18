@@ -1,6 +1,6 @@
 import useStatements from '@/hooks/useStatements'
 import { useEffect } from 'react'
-import StatementsList from './statementsList'
+import StatementsList from './StatementsList'
 
 export default function Statements({
   id,
