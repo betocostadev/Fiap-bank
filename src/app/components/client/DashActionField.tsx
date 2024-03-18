@@ -9,7 +9,7 @@ type ActionFieldProps = {
   btnDisabled: (action: string) => boolean
 }
 
-export default function ActionField({
+export default function DashActionField({
   label,
   actionType,
   value,

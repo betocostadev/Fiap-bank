@@ -1,9 +1,9 @@
 import useBanking from '@/hooks/useBanking'
 import useToast from '@/hooks/useToast'
 import { Dispatch, SetStateAction } from 'react'
-import ActionField from './ActionField'
+import DashActionField from './DashActionField'
 
-export default function Actions({
+export default function DashActions({
   id,
   setRefetch,
 }: {
@@ -60,7 +60,7 @@ export default function Actions({
 
   return (
     <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4 mb-8">
-      <ActionField
+      <DashActionField
         label="Withdraw"
         actionType="withdraw"
         value={withdrawAmount}
@@ -68,7 +68,7 @@ export default function Actions({
         handleBanking={handleBanking}
         btnDisabled={btnDisabled}
       />
-      <ActionField
+      <DashActionField
         label="Deposit"
         actionType="deposit"
         value={depositAmount}

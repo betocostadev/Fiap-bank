@@ -4,7 +4,7 @@ import useGetBalance from '@/hooks/useGetBalance'
 import { useEffect, useState } from 'react'
 import Statements from './statements'
 import DashboardAvatar from './DashboardAvatar'
-import Actions from './Actions'
+import DashActions from './DashActions'
 
 export default function ClientDashboard({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(true)
@@ -65,7 +65,7 @@ export default function ClientDashboard({ userId }: { userId: string }) {
             )}
           </div>
         </div>
-        <Actions id={userId} setRefetch={setShouldRefetch} />
+        <DashActions id={userId} setRefetch={setShouldRefetch} />
         <Statements id={userId} shouldRefetch={shouldRefecth} />
       </section>
     </div>
