@@ -2,9 +2,9 @@ import { IClient } from '@/@types/Client'
 import { useClients } from '@/hooks/useClients'
 import useGetBalance from '@/hooks/useGetBalance'
 import { useEffect, useState } from 'react'
-import Statements from './Statements'
-import Actions from './Actions'
+import Statements from './statements'
 import DashboardAvatar from './DashboardAvatar'
+import Actions from './Actions'
 
 export default function ClientDashboard({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(true)

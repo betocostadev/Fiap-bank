@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+
 export default function DashboardAvatar({
   clientName,
 }: {
