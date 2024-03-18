@@ -24,6 +24,17 @@ export default function Actions({
 
   const { toastSuccess, toastError } = useToast()
 
+  const btnDisabled = (type = 'deposit'): boolean => {
+    const selection = type === 'deposit' ? depositAmount : withdrawAmount
+    const inputError = type === 'deposit' ? depositError : withdrawError
+    return (
+      loading ||
+      (typeof selection === 'number' && selection <= 0) ||
+      selection === '' ||
+      inputError === true
+    )
+  }
+
   const handleBanking = async (type: string) => {
     if (type === 'withdraw') {
       const result = await submitWithdraw(id)
@@ -69,13 +80,9 @@ export default function Actions({
           </div>
 
           <button
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mt-2 border border-blue-500 hover:border-transparent hover:cursor-pointer rounded self-center dark:text-white"
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mt-2 border border-blue-500 hover:border-transparent hover:cursor-pointer rounded self-center dark:text-white disabled:opacity-50"
             onClick={() => handleBanking('withdraw')}
-            disabled={
-              loading ||
-              (typeof withdrawAmount === 'number' && withdrawAmount <= 0) ||
-              withdrawError
-            }
+            disabled={btnDisabled('withdraw')}
           >
             Withdraw
           </button>
@@ -101,12 +108,8 @@ export default function Actions({
             />
           </div>
           <button
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mt-2 border border-blue-500 hover:border-transparent hover:cursor-pointer rounded self-center dark:text-white"
-            disabled={
-              loading ||
-              (typeof depositAmount === 'number' && depositAmount <= 0) ||
-              depositError
-            }
+            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mt-2 border border-blue-500 hover:border-transparent hover:cursor-pointer rounded self-center dark:text-white disabled:opacity-50"
+            disabled={btnDisabled('deposit')}
             onClick={() => handleBanking('deposit')}
           >
             Deposit

@@ -13,6 +13,8 @@ export default function AddClientModal({
 }) {
   const { inputs, handleChange, resetForm } = useForm({
     name: '',
+    initialBalance: '',
+    overdraftLimit: '',
   })
   const [isError, setIsError] = useState(false)
 
@@ -29,13 +31,17 @@ export default function AddClientModal({
 
   const handleSubmit = async (e: MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
-    if (!inputs.name) {
-      toastError('Name is required')
+    if (!inputs.name || !inputs.overdraftLimit) {
+      toastError(`${!inputs.name ? 'Name ' : 'Overdraft limit '} is required`)
       setIsError(true)
       return
     }
 
-    const newClient = await addClient(inputs.name)
+    const newClient = await addClient({
+      name: inputs.name,
+      initialBalance: inputs.initialBalance,
+      overdraftLimit: inputs.overdraftLimit,
+    })
     toastSuccess('Client created successfully')
     resetForm()
     hideModal()
@@ -109,6 +115,45 @@ export default function AddClientModal({
                   </p>
                 )}
               </div>
+              <div>
+                <label
+                  htmlFor="initialBalance"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Initial balance
+                </label>
+                <input
+                  type="number"
+                  name="initialBalance"
+                  id="initialBalance"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  placeholder="1000"
+                  value={inputs.initialBalance}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="overdraftLimit"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Overdraft Limit
+                </label>
+                <input
+                  type="number"
+                  name="overdraftLimit"
+                  id="overdraftLimit"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  placeholder="1000"
+                  value={inputs.overdraftLimit}
+                  onChange={handleInputChange}
+                />
+              </div>
+              {isError && (
+                <p className="pt-1 text-xs text-red-500 dark:text-red-400">
+                  Overdraft Limit is required
+                </p>
+              )}
 
               <button
                 type="submit"

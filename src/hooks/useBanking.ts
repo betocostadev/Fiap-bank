@@ -28,7 +28,7 @@ const useBanking = (initial: '') => {
         if (name === 'withdraw') setWithdrawError(true)
         else setDepositError(true)
       }
-      value = parseInt(value)
+      value = Number(value)
     }
 
     if (name === 'withdraw') {

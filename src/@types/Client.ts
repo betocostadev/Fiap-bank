@@ -26,15 +26,8 @@ export type Balance = {
   overdraftLimit: number
 }
 
-export interface IStatementsResponse {
-  success: boolean
-  message: string
-  data: Statements[]
-}
-
-export type Statements = {
-  id: string
-  amount: number
-  date: string
-  type: string
+export interface AddClientPayload {
+  name: string
+  initialBalance: number
+  overdraftLimit: number
 }

@@ -1,4 +1,4 @@
-import { IClientResponse } from '@/@types/Client'
+import { AddClientPayload, IClientResponse } from '@/@types/Client'
 import { baseUrl } from '@/utils/config'
 
 export const getClientsService = async (url = `${baseUrl}/clientes`) => {
@@ -14,11 +14,11 @@ export const getClientsService = async (url = `${baseUrl}/clientes`) => {
   return data ? data : []
 }
 
-type AddClientData = {
-  name: string
-}
-
-export const addClientService = async (data: AddClientData) => {
+export const addClientService = async ({
+  name,
+  initialBalance,
+  overdraftLimit,
+}: AddClientPayload) => {
   const response = await fetch(`${baseUrl}/clientes`, {
     method: 'POST',
     mode: 'cors',
@@ -26,7 +26,7 @@ export const addClientService = async (data: AddClientData) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({ name, initialBalance, overdraftLimit }),
     redirect: 'follow',
     referrerPolicy: 'origin',
   })
