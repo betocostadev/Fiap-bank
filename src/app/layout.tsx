@@ -5,7 +5,7 @@ import './globals.css'
 import { ClientsProvider } from '@/providers/clients'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Header from './components/header/Header'
+import Header from './components/header/header'
 
 const inter = Inter({ subsets: ['latin'] })
 
